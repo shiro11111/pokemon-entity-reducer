@@ -6,7 +6,14 @@ export interface EntitiesState {
 
 const initialState: EntitiesState = {
   entities: {
-    pokemon: {}
+    pokemon: {
+      1: {
+        location: 'Krasnik Fabryczny Aby'
+      },
+      2: {
+        location: 'Krasnik Fabryczny Aby'
+      }
+    }
   }
 };
 
@@ -21,10 +28,15 @@ export function entityReducer(state = initialState, action: PayloadAction) {
       const newEntities = {};
       const ids = Object.keys(actionEntity);
 
+      console.log('actionEntity', actionEntity);
+      console.log('stateEntity', stateEntity);
+
       ids.forEach((id: string) => {
         newEntities[id] = { ...(stateEntity[id] || {}), ...(actionEntity[id] || {}) };
+        console.log('newEntities[id]', newEntities[id]);
       });
-      entity[pokemon] = { ...actionEntity, ...stateEntity, ...newEntities };
+      console.log('newEntities', newEntities);
+      entity[pokemon] = { ...stateEntity, ...newEntities };
     });
     return {
       ...state,
